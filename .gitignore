@@ -177,7 +177,7 @@ node_modules
 ### PROJECT SPECIFIC
 
 ## Compiled scripts
-public/scripts/
+public/scripts/*.js
 
 ## Characters
 # Tayo

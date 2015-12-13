@@ -6,10 +6,6 @@ const _ = require('lodash');
 const animator = require('./AnimatedSprite');
 const glob = require('glob');
 
-function resizeScreen() {
-    let screenSizer = setup.initialize();
-}
-
 function calculateSize(screen) {
     let availableSizes = [
         {
@@ -81,8 +77,6 @@ function fetchImages(screen) {
     });
 }
 
-$(window).resize(_.debounce(resizeScreen, 300));
-
 $(document).ready(function() {
     console.log('running');
     let screenSizer = setup.initialize();
@@ -92,3 +86,9 @@ $(document).ready(function() {
         console.log(loader)
     })
 });
+
+function resizeScreen() {
+    let screenSizer = setup.initialize();
+}
+
+$(window).resize(_.debounce(resizeScreen, 300));
