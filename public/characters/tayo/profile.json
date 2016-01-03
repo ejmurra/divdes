@@ -1,4 +1,12 @@
 {
   "name": "Tayo Lastname",
-  "video": "link to video"
+  "video": "link to video",
+  "hover": {
+    "start": 0,
+    "stop": 16
+  },
+  "click": {
+    "start": 16,
+    "stop": 32
+  }
 }
