@@ -44,7 +44,7 @@ PIXI.AnimatedSprite.prototype.gotoAndStop=function(where){
     else{
         this.currentFrame=where;
     }
-    this.setTexture(this.sequences[this.currentSequence][this.currentFrame]);
+    this.texture = this.sequences[this.currentSequence][this.currentFrame];
     this.playing=false;
 }
 
@@ -67,7 +67,7 @@ PIXI.AnimatedSprite.prototype.advanceTime=function(dt){
         this.currentFrame+=this.frameRate*dt;
 
         var constrainedFrame=Math.floor(Math.min(this.currentFrame, this.sequences[this.currentSequence].length-1));
-        this.setTexture(this.sequences[this.currentSequence][constrainedFrame]);
+        this.texture = this.sequences[this.currentSequence][constrainedFrame];
 
         if(this.currentFrame>=this.sequences[this.currentSequence].length){
             if(this.loop){
@@ -82,5 +82,10 @@ PIXI.AnimatedSprite.prototype.advanceTime=function(dt){
         }
     }
 };
+
+PIXI.AnimatedSprite.prototype.updateTransform = function(){
+    PIXI.Sprite.prototype.updateTransform.call(this);
+    this.advanceTime();
+}
 
 module.exports = PIXI.AnimatedSprite;

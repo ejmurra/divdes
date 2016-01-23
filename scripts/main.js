@@ -54,27 +54,20 @@ function fetchImages(screen) {
         }
     ];
     let size = calculateSize(screen);
-    let promises = [];
+    return new Promise(function(resolve, reject) {
+        let loader = new PIXI.loaders.Loader();
+        for (let i = 0; i < 3; i++) {
+            loader.add(`bg-${i}`, `./bg/${size.width}/${i}.png`)
+        }
 
-    // TODO: Get background images here
-
-    // Get character sheets here
-    for (let character of characters) {
-        let prom = new Promise(function(resolve, reject) {
+        for (let character of characters) {
             let paths = getCharacterFrames(character, size);
-            let loader = new PIXI.loaders.Loader();
             for (let path of paths) {
                 loader.add(`${character.name}-${paths.indexOf(path)}`, path);
             }
-            loader.add(`${character.name}-profile`, `./characters/${character.name}/profile.json`);
-            loader.once('complete', resolve);
-            loader.load();
-        });
-        promises.push(prom);
-    }
-
-    return new Promise(function(resolve, reject) {
-        Promise.all(promises).then(resolve);
+        }
+        loader.once('complete', resolve);
+        loader.load();
     });
 }
 
@@ -88,43 +81,70 @@ $(window).resize(_.debounce(resizeScreen, 300));
 $(document).ready(function() {
     let screenSizer = setup.initialize();
     var loadCharacters = fetchImages(screenSizer);
-    loadCharacters.then(function(l) {
-        let loader = l[0];
-        let name;
-        let images = [];
-
-        for (let asset in loader.resources) {
-            if (!name) name = asset.split('-')[0];
-            if (loader.resources[asset].isImage) {
-                images.push({
-                    num: asset.split('-')[1],
-                    data: loader.resources[asset].data
-                });
-            }
-        }
-        let profile = loader.resources[`${name}-profile`].data;
-
-        let textures = images.map(image => {
-            return {
-                texture: new PIXI.BaseTexture(image.data),
-                frame: image.num
-            }
-        });
-
-        // Build sequences
-        let sequences = {};
-        for (let prop in profile) {
-            if (typeof profile[prop] === 'object') {
-                sequences[prop] = textures.filter(tex => {
-                    return profile[prop].start <= Number(tex.frame) && Number(tex.frame) < profile[prop].stop;
-                }).map(tex => {
-                    return new PIXI.Texture(tex.texture)
-                })
-            }
-        }
-
-        let characterSprite = new PIXI.AnimatedSprite(sequences, 16, 'hover');
-        console.log(characterSprite);
-
+    loadCharacters.then(function (l) {
+        console.log(l)
     })
 });
+//        return new Promise(function(resolve, reject) {
+//            let name;
+//            let images = [];
+//
+//            for (let asset in loader.resources) {
+//                if (!name) name = asset.split('-')[0];
+//                if (loader.resources[asset].isImage) {
+//                    images.push({
+//                        num: asset.split('-')[1],
+//                        data: loader.resources[asset].data
+//                    });
+//                }
+//            }
+//            let profile = loader.resources[`${name}-profile`].data;
+//
+//            let textures = images.map(image => {
+//                return {
+//                    texture: new PIXI.BaseTexture(image.data),
+//                    frame: image.num
+//                }
+//            });
+//
+//            // Build sequences
+//            let sequences = {};
+//            for (let prop in profile) {
+//                if (typeof profile[prop] === 'object') {
+//                    sequences[prop] = textures.filter(tex => {
+//                        return profile[prop].start <= Number(tex.frame) && Number(tex.frame) < profile[prop].stop;
+//                    }).map(tex => {
+//                        return new PIXI.Texture(tex.texture)
+//                    })
+//                }
+//            }
+//            resolve(new PIXI.AnimatedSprite(sequences, 16))
+//        });
+//    }).then(function(sprite) {
+//        let screenSizer = setup.initialize();
+//        let renderer = PIXI.autoDetectRenderer(screenSizer.width, screenSizer.height);
+//        document.body.appendChild(renderer.view);
+//        let stage = new PIXI.Container();
+//        sprite.anchor.x = .5;
+//        sprite.anchor.y = .5;
+//        sprite.position.x = screenSizer.width / 2;
+//        sprite.position.y = screenSizer.height / 2;
+//        sprite.interactive = true;
+//        sprite.on('mouseover', function() {
+//            console.log('hovering');
+//            sprite.gotoAndPlay('hover')
+//        });
+//        sprite.on('click', function() {
+//            console.log('clicking');
+//            sprite.gotoAndPlay('click');
+//        });
+//        stage.addChild(sprite);
+//        animate();
+//        //renderer.render(stage)
+//        function animate() {
+//            //console.log('animating');
+//            requestAnimationFrame(animate);
+//            renderer.render(stage)
+//        }
+//    })
+//});
