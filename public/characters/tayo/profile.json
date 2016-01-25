@@ -1,6 +1,6 @@
 {
   "name": "Tayo Lastname",
-  "video": "link to video",
+  "video": "./videos/test.mp4",
   "hover": {
     "start": 0,
     "stop": 16

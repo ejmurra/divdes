@@ -65,62 +65,171 @@ function fetchImages(screen) {
             for (let path of paths) {
                 loader.add(`${character.name}-${paths.indexOf(path)}`, path);
             }
+            loader.add(`${character.name}-profile`, `./characters/${character.name}/profile.json`);
         }
+
         loader.once('complete', resolve);
         loader.load();
     });
 }
 
-function resizeScreen() {
-    let screenSizer = setup.initialize();
+//function resizeScreen() {
+//    let screenSizer = setup.initialize();
+//}
+//
+//$(window).resize(_.debounce(resizeScreen, 300));
+
+function checkContents(x) {
+    console.log(x);
 }
 
-$(window).resize(_.debounce(resizeScreen, 300));
+function organizeLoaderResources(loader) {
+    let background = [];
+    let chars = {};
+    for (let asset in loader.resources) {
+        if (asset.slice(0,2) == 'bg') {
+            background.push({
+                layer: asset.split('-')[1],
+                data: loader.resources[asset].data
+            })
+        } else {
+            let name = asset.split('-')[0];
+            let availNames = Object.keys(chars);
+            if (availNames.indexOf(name) === -1) {
+                chars[name] = [];
+            }
+            chars[name].push(loader.resources[asset]);
+        }
+    }
+    return {background, chars, loader};
+}
+
+function createBackgroundManager(background) {
+    let _layers = background.map(layer => {
+        return {
+            layer: +layer.layer,
+            sprite: new PIXI.extras.TilingSprite(new PIXI.Texture(new PIXI.BaseTexture(layer.data)), layer.data.width, layer.data.height)
+        }
+    }).map(layer => {
+        // TODO: initialize position and anchoring values;
+        return layer;
+    });
+    return {
+        _layers,
+        moveRight(num) {
+            _layers.map(layer => {
+                layer.sprite.tilePosition += (num * (layer.layer + 1));
+            })
+        },
+        moveLeft(num) {
+            _layers.map(layer => {
+                layer.sprite.tilePosition -= (num * (layer.layer + 1));
+            })
+        },
+        addToStage(stage) {
+            _layers.sort((a, b) => {
+                return a.layer < b.layer ? -1 : 1;
+            }).map(layer => {
+                stage.addChild(layer.sprite);
+            });
+        }
+    };
+}
+
+function reversed(array) {
+    let newArray = [];
+    for (let i = array.length - 1; i >= 0; i--) {
+        newArray.push(array[i])
+    }
+    return newArray;
+}
+
+function createTexturesFromImages({background, chars, loader}) {
+    let sprites = [];
+    for (let char in chars) {
+        let profile = loader.resources[`${char}-profile`].data;
+        let textures = chars[char].filter(image => {
+            return image.name.split('-')[1] !== 'profile'
+        }).map(image => {
+            return {
+                texture: new PIXI.BaseTexture(image.data),
+                frame: +image.name.split('-')[1]
+            }
+        });
+        let sequences = {};
+        for (let animation in profile) {
+            if (typeof profile[animation] === 'object') {
+                sequences[animation] = textures.filter(tex => {
+                    return profile[animation].start <= Number(tex.frame) && Number(tex.frame) < profile[animation].stop;
+                }).sort((a, b) => {
+                    return a.frame < b.frame ? -1 : 1;
+                }).map(tex => {
+                    return new PIXI.Texture(tex.texture)
+                });
+                sequences[`reverse-${animation}`] = reversed(sequences[animation]);
+            }
+        }
+        sprites.push({
+            sprite: new PIXI.AnimatedSprite(sequences, 16),
+            video: profile.video
+        })
+    }
+    let backgroundManager = createBackgroundManager(background);
+    return {sprites, backgroundManager};
+}
+
+function addSpriteToStage(sprite, stage) {
+    sprite.sprite.anchor.x = sprite.sprite.anchor.y = .5;
+    sprite.sprite.position.x = window.innerWidth / 2;
+    sprite.sprite.position.y = window.innerHeight / 2;
+    sprite.sprite.interactive = true;
+    sprite.sprite._animationState = 'hover';
+    sprite.sprite.on('mouseover', function() {
+        sprite.sprite.gotoAndPlay('hover');
+        sprite.sprite._animationState = 'hover';
+    });
+    let video = null;
+    sprite.sprite.on('click', function() {
+        if (sprite.sprite._animationState === 'hover') {
+            sprite.sprite.gotoAndPlay('click');
+            setTimeout(function() {
+                video = new PIXI.Sprite(new PIXI.Texture.fromVideoUrl(sprite.video));
+                video.anchor. x = video.anchor.y = .5;
+                video.position.x = window.innerWidth / 2;
+                video.position.y = window.innerHeight / 2;
+                stage.addChild(video);
+            }, 1200);
+            sprite.sprite._animationState = 'clicked';
+        } else if (sprite.sprite._animationState === 'clicked') {
+            sprite.sprite.gotoAndPlay('reverse-click');
+            sprite.sprite._animationState = 'hover';
+            stage.removeChild(video);
+            video.destroy();
+        }
+    });
+    //sprite.on('mouseout', function() {
+    //    sprite.gotoAndPlay('reverse-hover');
+    //});
+    stage.addChild(sprite.sprite);
+}
 
 
-$(document).ready(function() {
-    let screenSizer = setup.initialize();
-    var loadCharacters = fetchImages(screenSizer);
-    loadCharacters.then(function (l) {
-        console.log(l)
-    })
-});
-//        return new Promise(function(resolve, reject) {
-//            let name;
-//            let images = [];
-//
-//            for (let asset in loader.resources) {
-//                if (!name) name = asset.split('-')[0];
-//                if (loader.resources[asset].isImage) {
-//                    images.push({
-//                        num: asset.split('-')[1],
-//                        data: loader.resources[asset].data
-//                    });
-//                }
-//            }
-//            let profile = loader.resources[`${name}-profile`].data;
-//
-//            let textures = images.map(image => {
-//                return {
-//                    texture: new PIXI.BaseTexture(image.data),
-//                    frame: image.num
-//                }
-//            });
-//
-//            // Build sequences
-//            let sequences = {};
-//            for (let prop in profile) {
-//                if (typeof profile[prop] === 'object') {
-//                    sequences[prop] = textures.filter(tex => {
-//                        return profile[prop].start <= Number(tex.frame) && Number(tex.frame) < profile[prop].stop;
-//                    }).map(tex => {
-//                        return new PIXI.Texture(tex.texture)
-//                    })
-//                }
-//            }
-//            resolve(new PIXI.AnimatedSprite(sequences, 16))
-//        });
-//    }).then(function(sprite) {
+
+
+function renderScene({sprites, backgroundManager}) {
+    let renderer = PIXI.autoDetectRenderer(window.innerWidth, window.innerHeight);
+    document.body.appendChild(renderer.view);
+    let stage = new PIXI.Container();
+    backgroundManager.addToStage(stage);
+    addSpriteToStage(sprites[0], stage);
+    animate();
+    function animate() {
+        requestAnimationFrame(animate);
+        renderer.render(stage);
+    }
+}
+
+//then(function(sprite) {
 //        let screenSizer = setup.initialize();
 //        let renderer = PIXI.autoDetectRenderer(screenSizer.width, screenSizer.height);
 //        document.body.appendChild(renderer.view);
@@ -148,3 +257,12 @@ $(document).ready(function() {
 //        }
 //    })
 //});
+
+$(document).ready(function() {
+    let screenSizer = setup.initialize();
+    var loadCharacters = fetchImages(screenSizer);
+    loadCharacters
+        .then(organizeLoaderResources)
+        .then(createTexturesFromImages)
+        .then(renderScene)
+});
