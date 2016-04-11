@@ -1,0 +1,34 @@
+{
+  "name": "Jeremy Lastname",
+  "video": "https://player.vimeo.com/video/132030482",
+  "hover": {
+    "start": 0,
+    "stop": 16
+  },
+  "click": {
+    "start": 16,
+    "stop": 32
+  },
+  "bio": [
+    {
+      "heading": "Name",
+      "text": "Jeremy \"JRMY\" Clayborn"
+    },
+    {
+      "heading": "Education",
+      "text": "Five Semester, Civil and Environmental Engineering, UIUC"
+    },
+    {
+      "heading": "Career goal",
+      "text": "Own a top tier production company"
+    },
+    {
+      "heading": "Quote",
+      "text": "\"Music is a bridge for me to get somewhere else.\""
+    },
+    {
+      "heading": "Story",
+      "text": "\"I Quit\""
+    }
+  ]
+}

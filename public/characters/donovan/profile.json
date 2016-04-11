@@ -1,0 +1,36 @@
+{
+  "name": "Donovan Lastname",
+  "video": "https://player.vimeo.com/video/133624348",
+  "hover": {
+    "start": 0,
+    "stop": 16
+  },
+  "click": {
+    "start": 16,
+    "stop": 32
+  },
+  "bio": [
+    {
+      "heading": "Name",
+      "text": "Donovyn Chambersi"
+    },
+    {
+      "heading": "Education",
+      "text": "Booker T. Washington STEM Academy Gifted Program"
+    },
+    {
+      "heading": "Special recognition",
+      "text": "Turn-It-Around Award, Youth Fitness Award, Great Bus Conduct Award"
+    },
+    {
+      "heading": "Quote",
+      "text": "\"We’re all, in this program, African-American boys who are judged by our skin color..\""
+    },
+    {
+      "heading": "Story",
+      "text": "\"Building a Pipeline\""
+    }
+  ]
+}
+
+

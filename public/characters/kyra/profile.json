@@ -1,0 +1,36 @@
+{
+  "name": "Kyra Lastname",
+  "video": "https://player.vimeo.com/video/130605926",
+  "hover": {
+    "start": 0,
+    "stop": 16
+  },
+  "click": {
+    "start": 16,
+    "stop": 32
+  },
+  "bio": [
+    {
+      "heading": "Name",
+      "text": "Kyra Grant"
+    },
+    {
+      "heading": "Major",
+      "text": "B.S. in Industrial Engineering, 2016"
+    },
+    {
+      "heading": "Career goal",
+      "text": "Entrepreneur Focused Toward Business Management Consulting"
+    },
+    {
+      "heading": "Quote",
+      "text": "\"I walk into classrooms… I don’t see anyone else who looks like me or can even relate to me.\""
+    },
+    {
+      "heading": "Story",
+      "text": "\"Against the Odds\""
+    }
+  ]
+}
+
+

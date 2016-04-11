@@ -1,0 +1,36 @@
+{
+  "name": "Tayo Lastname",
+  "video": "https://player.vimeo.com/video/132063850",
+  "hover": {
+    "start": 0,
+    "stop": 16
+  },
+  "click": {
+    "start": 16,
+    "stop": 32
+  },
+  "bio": [
+    {
+      "heading": "Name",
+      "text": "Temitayo Ade-Oshifogun"
+    },
+    {
+      "heading": "Education",
+      "text": "B.S in Electrical Engineering, 2015"
+    },
+    {
+      "heading": "Current Position",
+      "text": "Program Engineer, Ingersoll Rand"
+    },
+    {
+      "heading": "Quote",
+      "text": "\"You are hereby dropped from the University of Illinois, forfeiting your rights and privileges as a student.\""
+    },
+    {
+      "heading": "Story",
+      "text": "\"Booted… then Back\""
+    }
+  ]
+}
+
+

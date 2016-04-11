@@ -1,0 +1,34 @@
+{
+  "name": "Maya",
+  "video": "https://player.vimeo.com/video/143805895",
+  "hover": {
+    "start": 0,
+    "stop": 16
+  },
+  "click": {
+    "start": 16,
+    "stop": 32
+  },
+  "bio": [
+    {
+      "heading": "Name",
+      "text": "Yemaya Bordain"
+    },
+    {
+      "heading": "Education",
+      "text": "PhD in Electrical and Computer Engineering, 2015"
+    },
+    {
+      "heading": "Current Position",
+      "text": "Internet of Things Engineer, Intel"
+    },
+    {
+      "heading": "Quote",
+      "text": "\"I was the only African-American woman in the department for three full years.\""
+    },
+    {
+      "heading": "Story",
+      "text": "\"Still a Novelty in 2015\""
+    }
+  ]
+}

@@ -1,0 +1,36 @@
+{
+  "name": "Alma Mater",
+  "video": "https://player.vimeo.com/video/132030482",
+  "hover": {
+    "start": 0,
+    "stop": 16
+  },
+  "click": {
+    "start": 16,
+    "stop": 32
+  },
+  "bio": [
+    {
+      "heading": "Name",
+      "text": "University of Illinois at Urbana-Champaign College of Engineering"
+    },
+    {
+      "heading": "Ranking",
+      "text": "Consistently among the top five programs in the world"
+    },
+    {
+      "heading": "Ethnic distribution",
+      "text": "1.2% African American, 17.2% Asian American, 37.8% Caucasian, 43.8% Other"
+    },
+    {
+      "heading": "Quote",
+      "text": "\"It’s going to take a lot of work over many, many years to rectify this.\""
+    },
+    {
+      "heading": "Story",
+      "text": "\"Do the right thing\""
+    }
+  ]
+}
+
+

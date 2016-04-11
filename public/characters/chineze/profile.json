@@ -1,0 +1,34 @@
+{
+  "name": "Chineze lastname",
+  "video": "https://player.vimeo.com/video/142339340",
+  "hover": {
+    "start": 0,
+    "stop": 16
+  },
+  "click": {
+    "start": 16,
+    "stop": 32
+  },
+  "bio": [
+    {
+      "heading": "Name",
+      "text": "Chineze Okosi"
+    },
+    {
+      "heading": "Major",
+      "text": "B.S. in Industrial Engineering, 2016"
+    },
+    {
+      "heading": "Career goal",
+      "text": "Lean 6 Sigma Sensei"
+    },
+    {
+      "heading": "Quote",
+      "text": "\"If there aren’t black engineers here at U of I, I honestly don’t know where they’re at.\""
+    },
+    {
+      "heading": "Story",
+      "text": "\"Diversity ≠ Inclusion\""
+    }
+  ]
+}

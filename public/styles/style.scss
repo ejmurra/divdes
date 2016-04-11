@@ -1,0 +1,118 @@
+html, body, div {
+  transition:all 0.3s ease;
+  padding: 0px;
+  margin: 0px;
+  background-color: ghostwhite;
+}
+
+.container {
+  transition:all 0.3s ease;
+  max-width: 700px;
+  font-family: 'Roboto', sans-serif;
+  margin: 0 auto;
+  padding: 1em 1.5em;
+  background-color: white;
+  border-radius: 5px;
+}
+h1,h2,h3 {
+  font-family: 'Roboto', sans-serif;
+  text-align: center;
+}
+p {
+  font-family: 'PT Serif', serif;
+  font-size: 1.3em;
+  line-height: 1.5em;
+}
+hr {
+  border: 0;
+  height: 1px;
+  background-image: linear-gradient(to right, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0));
+}
+
+#loading-bar {
+  position: fixed;
+  margin-left: -1.5em;
+  bottom: 0;
+  z-index: 2;
+  height: 50px;
+  background-color: ghostwhite;
+  width: 100%;
+  max-width: 700px;
+  padding: 5px;
+}
+
+//.outer-container {
+//  position: relative;
+//}
+//
+//.inner-container {
+//  position: absolute;
+//  top: 50%;
+//  height: 50px;
+//  margin-top: 25px;
+//}
+
+progress {
+  width: 100%;
+  height: 100%;
+}
+
+i {
+  color: #dddddd
+}
+
+#next, #prev {
+  i {
+    color: #3288e6;
+  }
+
+}
+
+#next, #prev, #videoFrame, #closeBtn, #iconBox {
+  visibility: hidden;
+}
+
+#next, #prev, #closeBtn {
+  cursor: pointer;
+}
+
+#iconBox {
+  i {
+    margin: 0 4px;
+    cursor: pointer;
+  }
+}
+
+.creditRow {
+  padding: .7em;
+  font-size: 1.2em;
+  overflow: hidden;
+  &.creditRow:first-child {
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+  }
+  &.creditRow:last-child {
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+  }
+}
+
+.creditName {
+  float: left;
+  @media screen and (min-width: 600px) {
+    margin-left: 20%;
+  }
+
+}
+
+.creditEmail {
+  font-style: italic;
+  float: right;
+  @media screen and (min-width: 600px) {
+    margin-right: 20%;
+  }
+}
+
+.dropCap {
+  float: left; color: #000; font-size: 75px; line-height: 60px; padding-top: 4px; padding-right: 8px; padding-left: 3px; font-family: Georgia;
+}
