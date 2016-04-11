@@ -177,7 +177,6 @@ node_modules
 ### PROJECT SPECIFIC
 
 ## Compiled scripts
-public/scripts/*.js
 
 ## Characters
 public/characters/*/frames/480
