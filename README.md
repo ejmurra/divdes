@@ -7,4 +7,4 @@ Project on lack of diversity in STEM fields at the University of Illinois.
 * Gulp (`npm install -g gulp`)
 
 ## Build
-Use `gulp dev` to watch files in src and scripts for changes. Run `node bin/resizeBG` to convert the background images. Run `node bin/resizeImages` to convert the caricatures. Serve project root from webserver.
+`npm install` to grab dependencies. Use `gulp dev` to watch files in src and scripts for changes. Run `node bin/resizeBG` to convert the background images. Run `node bin/resizeImages` to convert the caricatures. Serve project root from webserver.
