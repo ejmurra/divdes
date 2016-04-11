@@ -178,11 +178,7 @@ node_modules
 
 ## Compiled scripts
 
-## Characters
-public/characters/*/frames/480
-public/characters/*/frames/960
-public/characters/*/frames/1920
-public/characters/*/frames/3840
+
 
 ##Other
 *.zip
