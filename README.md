@@ -8,6 +8,3 @@ Project on lack of diversity in STEM fields at the University of Illinois.
 
 ## Build
 Use `gulp dev` to watch files in src and scripts for changes. Run `node bin/resizeBG` to convert the background images. Run `node bin/resizeImages` to convert the caricatures.
-=======
-## Build:
-Install gulp-cli. Run `gulp dev` from root directory. Serve public directory and open public/index.html in browser.
