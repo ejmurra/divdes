@@ -5,6 +5,7 @@ let glob = require('glob');
 let _ = require('lodash');
 require('babel-polyfill');
 
+
 let SIZES = [480,960,1920, 3840];
 let IMGPATH = path.resolve(path.dirname(require.main.filename),'../public/bg/originals/');
 

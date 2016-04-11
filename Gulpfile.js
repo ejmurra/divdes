@@ -18,7 +18,7 @@ gulp.task('frontend', function() {
     browserify("./scripts/main.js")
         .transform("babelify", {presets: ["es2015"]})
         .bundle()
-        .pipe(fs.createWriteStream("./public/scripts/main_two.js"));
+        .pipe(fs.createWriteStream("./public/scripts/main.js"));
 });
 
 gulp.task('dev',['backendjs','frontend'], function() {
