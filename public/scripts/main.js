@@ -54311,6 +54311,7 @@ var SU = require('./SpriteUtilities');
 SU = new SU(PIXI);
 var $ = require('jquery');
 var vex = require('vex-js');
+var _ = require('lodash');
 
 var centerAndScaleContainer = function centerAndScaleContainer(_ref) {
   var container = _ref.container;
@@ -54714,9 +54715,9 @@ var UIManager = exports.UIManager = (function () {
           position: 'absolute',
           'background-color': "#dddddd",
           width: spriteWidth * 3 / 4,
-          height: spriteHeight * 3 / 4,
+          height: '70vh',
           left: (screen.width - spriteWidth) / 2 + spriteWidth / 8,
-          top: (screen.height - spriteHeight) / 2 + spriteHeight / 8,
+          top: '15vh',
           overflow: 'auto',
           "border-radius": '10px',
           padding: '1.2em'
@@ -54991,12 +54992,15 @@ var UIManager = exports.UIManager = (function () {
         }, 100);
       };
 
+      nextFunc = _.debounce(nextFunc, 500);
+
       this.next.on('click', nextFunc);
 
       this.next.on('touchend', nextFunc);
 
       // Prev BOX LISTENERS
       var prevFunc = function prevFunc() {
+        console.log('prev');
         _this2.removeScreenArea();
         var nextSprite = characterManager.getCurrentSprite();
         var currSprite = characterManager.getPrevSprite();
@@ -55013,6 +55017,8 @@ var UIManager = exports.UIManager = (function () {
         }, 100);
       };
 
+      prevFunc = _.debounce(prevFunc, 500);
+
       this.prev.on('click', prevFunc);
 
       this.prev.on('touchend', prevFunc);
@@ -55022,7 +55028,7 @@ var UIManager = exports.UIManager = (function () {
   return UIManager;
 })();
 
-},{"./SpriteUtilities":327,"jquery":198,"pixi.js":304,"vex-js":323}],326:[function(require,module,exports){
+},{"./SpriteUtilities":327,"jquery":198,"lodash":199,"pixi.js":304,"vex-js":323}],326:[function(require,module,exports){
 "use strict";
 
 var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();

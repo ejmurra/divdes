@@ -3,6 +3,7 @@ let SU = require('./SpriteUtilities');
 SU = new SU(PIXI);
 const $ = require('jquery');
 const vex = require('vex-js');
+const _ = require('lodash');
 
 const centerAndScaleContainer = ({container, screen, targetAspect}) => {
   let width = screen.width;
@@ -354,9 +355,9 @@ export class UIManager {
           position: 'absolute',
           'background-color': "#dddddd",
           width: spriteWidth * 3/4,
-          height: spriteHeight * 3/4,
+          height: '70vh',
           left: (screen.width - spriteWidth)/2 + spriteWidth/8,
-          top: (screen.height - spriteHeight)/2 + spriteHeight/8,
+          top: '15vh',
           overflow: 'auto',
           "border-radius": '10px',
           padding: '1.2em'
@@ -630,12 +631,15 @@ export class UIManager {
 
     };
 
+    nextFunc = _.debounce(nextFunc, 500);
+
     this.next.on('click', nextFunc);
 
     this.next.on('touchend', nextFunc);
 
     // Prev BOX LISTENERS
     let prevFunc = () => {
+      console.log('prev');
       this.removeScreenArea();
       let nextSprite = characterManager.getCurrentSprite();
       let currSprite = characterManager.getPrevSprite();
@@ -652,6 +656,8 @@ export class UIManager {
         slideLeftFunc(currSprite, 0, false);
       }, 100);
     };
+
+    prevFunc = _.debounce(prevFunc, 500);
 
     this.prev.on('click', prevFunc);
 
