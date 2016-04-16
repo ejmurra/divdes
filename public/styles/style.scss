@@ -5,6 +5,7 @@ html, body, div {
   background-color: ghostwhite;
 }
 
+
 .container {
   transition:all 0.3s ease;
   max-width: 700px;
@@ -63,13 +64,26 @@ i {
 
 #next, #prev {
   i {
-    color: #3288e6;
+    color: #dddddd;
   }
 
 }
 
-#next, #prev, #videoFrame, #closeBtn, #iconBox {
+#iconBox,  #videoFrame {
   visibility: hidden;
+}
+
+#next, #prev, #closeBtn{
+  visibility: hidden;
+  transition: all .2s ease-in-out;
+  &:hover {
+    transform: scale(1.4);
+    -webkit-transform: scale(1.4);
+    -ms-transform: scale(1.4);
+    i {
+      color: #3288e6;
+    }
+  }
 }
 
 #next, #prev, #closeBtn {
@@ -80,6 +94,13 @@ i {
   i {
     margin: 0 4px;
     cursor: pointer;
+    transition: all .2s ease-in-out;
+    &:hover {
+      transform: scale(1.4);
+      -webkit-transform: scale(1.4);
+      -ms-transform: scale(1.4);
+      color: #3288e6;
+    }
   }
 }
 

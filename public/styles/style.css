@@ -46,17 +46,33 @@ i {
   color: #dddddd; }
 
 #next i, #prev i {
-  color: #3288e6; }
+  color: #dddddd; }
 
-#next, #prev, #videoFrame, #closeBtn, #iconBox {
+#iconBox, #videoFrame {
   visibility: hidden; }
+
+#next, #prev, #closeBtn {
+  visibility: hidden;
+  transition: all .2s ease-in-out; }
+  #next:hover, #prev:hover, #closeBtn:hover {
+    transform: scale(1.4);
+    -webkit-transform: scale(1.4);
+    -ms-transform: scale(1.4); }
+    #next:hover i, #prev:hover i, #closeBtn:hover i {
+      color: #3288e6; }
 
 #next, #prev, #closeBtn {
   cursor: pointer; }
 
 #iconBox i {
   margin: 0 4px;
-  cursor: pointer; }
+  cursor: pointer;
+  transition: all .2s ease-in-out; }
+  #iconBox i:hover {
+    transform: scale(1.4);
+    -webkit-transform: scale(1.4);
+    -ms-transform: scale(1.4);
+    color: #3288e6; }
 
 .creditRow {
   padding: .7em;

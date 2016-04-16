@@ -80,7 +80,7 @@ export class BackgroundManager {
 }
 
 export class CharacterManager {
-  constructor({screen, targetAspect, container, chars, profiles}) {
+  constructor({screen, targetAspect, container, chars, profiles, bioBoxes}) {
     for (let char in chars) {
       let resources = chars[char].map(data => {
         return new PIXI.Texture(new PIXI.BaseTexture(data.data))
@@ -114,6 +114,14 @@ export class CharacterManager {
         container: this.container,
         screen, targetAspect
       })
+  }
+
+  displayBioBox() {
+    let name = this.getCurrentSprite().__profile__.name;
+  }
+
+  removeBioBox() {
+    let name = this.getCurrentSprite().__profile__.name;
   }
 
   getCurrentSprite() {
@@ -199,21 +207,22 @@ export class UIManager {
     let ratio = 281 / 500;
     let vidWidth = screen.width * 2/3;
     let vidHeight = ratio * vidWidth;
-    this.video = $('<iframe id="videoFrame" allowfullscreen webkitallowfullscreen mozallowfullscreen></iframe>');
+    this.video = $('<div id="videoFrame"></div>');
     this.video.css({
       "position": "absolute",
       "top": screen.height/2 - vidHeight/2,
       "left": screen.width/2 - vidWidth/2,
-      width: vidWidth,
-      height: vidHeight
+      // width: vidWidth,
+      // height: vidHeight
     });
+    this.vidWidth = vidWidth;
+    this.vidHeight = vidHeight;
 
-    this.closeBtn = $("<i id='closeBtn' class='fa fa-close fa-3x'></i>");
+    this.closeBtn = $("<i id='closeBtn' class='fa fa-arrow-circle-o-left fa-3x'></i>");
     this.closeBtn.css({
       position: 'absolute',
       left: "5px",
-      top: "5px",
-      color: 'red'
+      top: "5px"
     });
 
     this.iconBox = $("<div id='iconBox'></div>");
@@ -224,7 +233,7 @@ export class UIManager {
       'background-color': "transparent",
       padding: '4px'
     });
-    let twitterUrl = "https://twitter.com/intent/tweet/?text=Some+body+copy&url=http%3A%2F%2Fwww.diversitysdesert.com&hashtags=blacksciencematters";
+    let twitterUrl = "https://twitter.com/intent/tweet/?text=Some+body+copy&url=http%3A%2F%2Fwww.blacksciencematters.com&hashtags=blacksciencematters&via=BlkScienceMtrs";
     this.twitter = $(`<a href="${twitterUrl}">
           <i class='fa fa-twitter fa-2x'></i>
         </a>`);
@@ -389,7 +398,7 @@ export class UIManager {
 
     this.next = $(`
         <div id="next">
-          <i class="fa fa-angle-right fa-5x"></i>
+          <i class="fa fa-angle-right fa-4x"></i>
         </div>
     `);
     this.next.css({
@@ -406,7 +415,7 @@ export class UIManager {
 
     this.prev = $(`
         <div id="prev">
-          <i class="fa fa-angle-left fa-5x"></i>
+          <i class="fa fa-angle-left fa-4x"></i>
         </div>
     `);
     this.prev.css({
@@ -502,6 +511,9 @@ export class UIManager {
     this.closeBtn.css({
       visibility: 'hidden'
     })
+    this.player.stopVideo();
+    $('#videoFrame').remove();
+    $('body').append(this.video);
   }
 
   setup({backgroundManager, characterManager}) {
@@ -511,10 +523,22 @@ export class UIManager {
 
     let showVid = () => {
       this.addScreenShield();
-      let vidUrl = String(this.characterManager.getCurrentSprite().__profile__.video);
-      let vidOpts = "?color=ff9933&byline=0&portrait=0&autoplay=1";
-      this.video.attr('src', vidUrl + vidOpts);
-      this.video.css({visibility: 'visible'})
+      this.player = new YT.Player('videoFrame', {
+        height: this.vidHeight,
+        width: this.vidWidth,
+        videoId: this.characterManager.getCurrentSprite().__profile__.video,
+        events: {
+          'onReady': onPlayerReady,
+          // 'onStateChange': onPlayerStateChange
+        }
+      });
+      $('#videoFrame').css({
+        visibility: 'visible'
+      });
+      // let vidUrl = String(this.characterManager.getCurrentSprite().__profile__.video);
+      // let vidOpts = "'?rel=0&autoplay=1";
+      // this.video.attr('src', vidUrl + vidOpts);
+      // this.video.css({visibility: 'visible'})
     };
 
     let displayVid = () => {
@@ -571,6 +595,7 @@ export class UIManager {
         sprite.vx = 0;
         sprite.x = end;
         this.showScreenArea({characterManager: this.characterManager});
+        this.characterManager.displayBioBox();
         if (movesBg) {
           backgroundManager.move(0);
         }
@@ -595,6 +620,7 @@ export class UIManager {
         sprite.vx = 0;
         sprite.x = end;
         this.showScreenArea({characterManager: this.characterManager});
+        this.characterManager.displayBioBox();
         if (movesBg) {
           backgroundManager.move(0);
         }
@@ -616,6 +642,7 @@ export class UIManager {
     // NEXT BOX LISTENERS
     let nextFunc = () => {
       this.removeScreenArea();
+      this.characterManager.removeBioBox();
       let prevSprite = characterManager.getCurrentSprite();
       let currSprite = characterManager.getNextSprite();
 
@@ -639,8 +666,8 @@ export class UIManager {
 
     // Prev BOX LISTENERS
     let prevFunc = () => {
-      console.log('prev');
       this.removeScreenArea();
+      this.characterManager.removeBioBox();
       let nextSprite = characterManager.getCurrentSprite();
       let currSprite = characterManager.getPrevSprite();
 

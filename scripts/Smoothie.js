@@ -131,7 +131,6 @@ export class Smoothie {
 
   //The `start` method gets Smoothie's game loop running
   start() {
-    console.log(this);
     //Start the game loop
     this.gameLoop(Date.now());
   }

@@ -19,6 +19,7 @@
     "gulp-sourcemaps": "^1.6.0",
     "jquery": "^2.1.4",
     "lodash": "^3.10.1",
+    "lodash.debounce": "^4.0.6",
     "pixi.js": "^3.0.8",
     "vex-js": "^2.3.4",
     "vinyl-buffer": "^1.0.0",
