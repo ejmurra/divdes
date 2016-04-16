@@ -131,7 +131,7 @@ export class AssetLoader {
     let loader = new PIXI.loaders.Loader();
     let size = this.calculateSize(this._availableSizes);
     let characters = this._characters;
-    let charNames = ['alma'];
+    let charNames = ['alma', 'tayo', 'shareefah', 'kyra', 'maya', 'donovan', 'jeremy', 'chineze'];
 
     let getCharacterFrames = (character, size) => {
       let pathsToFetch = [];

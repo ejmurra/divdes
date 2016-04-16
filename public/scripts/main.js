@@ -54623,7 +54623,7 @@ var AssetLoader = exports.AssetLoader = (function () {
       var loader = new PIXI.loaders.Loader();
       var size = this.calculateSize(this._availableSizes);
       var characters = this._characters;
-      var charNames = ['alma'];
+      var charNames = ['alma', 'tayo', 'shareefah', 'kyra', 'maya', 'donovan', 'jeremy', 'chineze'];
 
       var getCharacterFrames = function getCharacterFrames(character, size) {
         var pathsToFetch = [];
