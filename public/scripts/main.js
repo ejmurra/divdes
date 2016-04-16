@@ -55051,7 +55051,7 @@ var UIManager = exports.UIManager = (function () {
     this.fb.on('click', function () {
       FB.ui({
         method: 'share',
-        href: 'http://www.diversitysdesert.com'
+        href: 'http://www.blacksciencematters.com'
       }, function (response) {});
     });
     this.credits = $('<i class="fa fa-copyright fa-2x"></i>');
