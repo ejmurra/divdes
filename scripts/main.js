@@ -26,6 +26,7 @@ let loadScene = (renderer, smoothie, renderLoop, {characterManager, uiManager, b
     $('body').append(renderer.view);
     renderLoop.call(smoothie);
     uiManager.showScreenArea({characterManager});
+    characterManager.displayBioBox();
   }
 };
 

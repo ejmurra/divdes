@@ -54523,6 +54523,7 @@ var AssetLoader = exports.AssetLoader = (function () {
         var background = [];
         var chars = {};
         var profiles = {};
+        var bioBoxes = [];
         for (var asset in loader.resources) {
           if (asset.slice(0, 2) == 'bg') {
             background.push({
@@ -54531,6 +54532,11 @@ var AssetLoader = exports.AssetLoader = (function () {
             });
           } else if (asset.split('-')[1] === 'profile') {
             profiles[asset.split('-')[0]] = loader.resources[asset].data;
+          } else if (asset.split('-')[0] === 'bio') {
+            bioBoxes.push({
+              name: asset.split('-')[1],
+              data: loader.resources[asset].data
+            });
           } else {
             var name = asset.split('-')[0];
             var availNames = Object.keys(chars);
@@ -54584,17 +54590,20 @@ var AssetLoader = exports.AssetLoader = (function () {
         var bgOpts = Object.assign({}, managerBase, {
           bg: background,
           size: _this.calculateSize(_this._availableSizes),
-          container: bgContainer
+          container: bgContainer,
+          bioBoxes: bioBoxes
         });
+
+        var backgroundManager = new _Managers.BackgroundManager(bgOpts);
 
         var characterOpts = Object.assign({}, managerBase, {
           container: characterContainer,
           chars: chars,
-          profiles: profiles
+          profiles: profiles,
+          backgroundManager: backgroundManager
         });
 
         var characterManager = new _Managers.CharacterManager(characterOpts);
-        var backgroundManager = new _Managers.BackgroundManager(bgOpts);
 
         var UIOpts = Object.assign({}, managerBase, {
           container: UIContainer,
@@ -54614,6 +54623,7 @@ var AssetLoader = exports.AssetLoader = (function () {
       var loader = new PIXI.loaders.Loader();
       var size = this.calculateSize(this._availableSizes);
       var characters = this._characters;
+      var charNames = ['alma'];
 
       var getCharacterFrames = function getCharacterFrames(character, size) {
         var pathsToFetch = [];
@@ -54633,36 +54643,10 @@ var AssetLoader = exports.AssetLoader = (function () {
         var _iteratorError2 = undefined;
 
         try {
-          for (var _iterator2 = characters[Symbol.iterator](), _step2; !(_iteratorNormalCompletion2 = (_step2 = _iterator2.next()).done); _iteratorNormalCompletion2 = true) {
-            var character = _step2.value;
+          for (var _iterator2 = charNames[Symbol.iterator](), _step2; !(_iteratorNormalCompletion2 = (_step2 = _iterator2.next()).done); _iteratorNormalCompletion2 = true) {
+            var name = _step2.value;
 
-            var paths = getCharacterFrames(character, size);
-            var _iteratorNormalCompletion3 = true;
-            var _didIteratorError3 = false;
-            var _iteratorError3 = undefined;
-
-            try {
-              for (var _iterator3 = paths[Symbol.iterator](), _step3; !(_iteratorNormalCompletion3 = (_step3 = _iterator3.next()).done); _iteratorNormalCompletion3 = true) {
-                var path = _step3.value;
-
-                loader.add(character.name + '-' + paths.indexOf(path), path);
-              }
-            } catch (err) {
-              _didIteratorError3 = true;
-              _iteratorError3 = err;
-            } finally {
-              try {
-                if (!_iteratorNormalCompletion3 && _iterator3.return) {
-                  _iterator3.return();
-                }
-              } finally {
-                if (_didIteratorError3) {
-                  throw _iteratorError3;
-                }
-              }
-            }
-
-            loader.add(character.name + '-profile', './public/characters/' + character.name + '/profile.json');
+            loader.add('bio-' + name, './public/bg/' + size.width + '/' + name + '.png');
           }
         } catch (err) {
           _didIteratorError2 = true;
@@ -54675,6 +54659,57 @@ var AssetLoader = exports.AssetLoader = (function () {
           } finally {
             if (_didIteratorError2) {
               throw _iteratorError2;
+            }
+          }
+        }
+
+        var _iteratorNormalCompletion3 = true;
+        var _didIteratorError3 = false;
+        var _iteratorError3 = undefined;
+
+        try {
+          for (var _iterator3 = characters[Symbol.iterator](), _step3; !(_iteratorNormalCompletion3 = (_step3 = _iterator3.next()).done); _iteratorNormalCompletion3 = true) {
+            var character = _step3.value;
+
+            var paths = getCharacterFrames(character, size);
+            var _iteratorNormalCompletion4 = true;
+            var _didIteratorError4 = false;
+            var _iteratorError4 = undefined;
+
+            try {
+              for (var _iterator4 = paths[Symbol.iterator](), _step4; !(_iteratorNormalCompletion4 = (_step4 = _iterator4.next()).done); _iteratorNormalCompletion4 = true) {
+                var path = _step4.value;
+
+                loader.add(character.name + '-' + paths.indexOf(path), path);
+              }
+            } catch (err) {
+              _didIteratorError4 = true;
+              _iteratorError4 = err;
+            } finally {
+              try {
+                if (!_iteratorNormalCompletion4 && _iterator4.return) {
+                  _iterator4.return();
+                }
+              } finally {
+                if (_didIteratorError4) {
+                  throw _iteratorError4;
+                }
+              }
+            }
+
+            loader.add(character.name + '-profile', './public/characters/' + character.name + '/profile.json');
+          }
+        } catch (err) {
+          _didIteratorError3 = true;
+          _iteratorError3 = err;
+        } finally {
+          try {
+            if (!_iteratorNormalCompletion3 && _iterator3.return) {
+              _iterator3.return();
+            }
+          } finally {
+            if (_didIteratorError3) {
+              throw _iteratorError3;
             }
           }
         }
@@ -54746,10 +54781,15 @@ var BackgroundManager = exports.BackgroundManager = (function () {
     var bg = _ref2.bg;
     var size = _ref2.size;
     var container = _ref2.container;
+    var bioBoxes = _ref2.bioBoxes;
 
     _classCallCheck(this, BackgroundManager);
 
     this.container = container;
+    this.bioBoxes = bioBoxes.map(function (bio) {
+      var texture = new PIXI.Texture(new PIXI.BaseTexture(bio.data));
+      return { name: bio.name, texture: texture };
+    });
     this._layers = bg.map(function (layer) {
       var texture = new PIXI.extras.TilingSprite(new PIXI.Texture(new PIXI.BaseTexture(layer.data)));
       texture.width = size.width;
@@ -54761,6 +54801,8 @@ var BackgroundManager = exports.BackgroundManager = (function () {
         texture: texture
       };
     });
+
+    this.bioContainer = new PIXI.Container();
 
     this._layers.forEach(function (layer) {
       _this.container.addChild(layer.texture);
@@ -54775,9 +54817,29 @@ var BackgroundManager = exports.BackgroundManager = (function () {
       targetAspect: targetAspect
     });
     this.scale = this.container.scale;
+    this.container.addChild(this.bioContainer);
   }
 
   _createClass(BackgroundManager, [{
+    key: 'addBio',
+    value: function addBio(name) {
+      var _this2 = this;
+
+      this.bioBoxes.filter(function (bio) {
+        return bio.name === name;
+      }).forEach(function (bio) {
+        var sprite = SU.sprite(bio.texture);
+        _this2.bioContainer.addChild(sprite);
+      });
+      // console.log(this.bioBoxes);
+      // console.log(this.bioContainer);
+    }
+  }, {
+    key: 'removeBio',
+    value: function removeBio(name) {
+      this.bioContainer.removeChildren();
+    }
+  }, {
     key: 'move',
     value: function move(velocity) {
 
@@ -54808,10 +54870,11 @@ var CharacterManager = exports.CharacterManager = (function () {
     var container = _ref3.container;
     var chars = _ref3.chars;
     var profiles = _ref3.profiles;
-    var bioBoxes = _ref3.bioBoxes;
+    var backgroundManager = _ref3.backgroundManager;
 
     _classCallCheck(this, CharacterManager);
 
+    this.backgroundManager = backgroundManager;
     for (var char in chars) {
       var resources = chars[char].map(function (data) {
         return new PIXI.Texture(new PIXI.BaseTexture(data.data));
@@ -54850,11 +54913,13 @@ var CharacterManager = exports.CharacterManager = (function () {
     key: 'displayBioBox',
     value: function displayBioBox() {
       var name = this.getCurrentSprite().__profile__.name;
+      this.backgroundManager.addBio(name);
     }
   }, {
     key: 'removeBioBox',
     value: function removeBioBox() {
       var name = this.getCurrentSprite().__profile__.name;
+      this.backgroundManager.removeBio(name);
     }
   }, {
     key: 'getCurrentSprite',
@@ -55275,7 +55340,7 @@ var UIManager = exports.UIManager = (function () {
   }, {
     key: 'setup',
     value: function setup(_ref6) {
-      var _this2 = this;
+      var _this3 = this;
 
       var backgroundManager = _ref6.backgroundManager;
       var characterManager = _ref6.characterManager;
@@ -55284,11 +55349,11 @@ var UIManager = exports.UIManager = (function () {
       this.characterManager = characterManager;
 
       var showVid = function showVid() {
-        _this2.addScreenShield();
-        _this2.player = new YT.Player('videoFrame', {
-          height: _this2.vidHeight,
-          width: _this2.vidWidth,
-          videoId: _this2.characterManager.getCurrentSprite().__profile__.video,
+        _this3.addScreenShield();
+        _this3.player = new YT.Player('videoFrame', {
+          height: _this3.vidHeight,
+          width: _this3.vidWidth,
+          videoId: _this3.characterManager.getCurrentSprite().__profile__.video,
           events: {
             'onReady': onPlayerReady
           }
@@ -55304,7 +55369,7 @@ var UIManager = exports.UIManager = (function () {
       };
 
       var displayVid = function displayVid() {
-        _this2.removeScreenArea();
+        _this3.removeScreenArea();
         var currSprite = characterManager.getCurrentSprite();
         currSprite.playAnimation([currSprite.states.click[0], currSprite.states.click[1] - 1], currSprite.states.end - 1, showVid);
       };
@@ -55332,11 +55397,11 @@ var UIManager = exports.UIManager = (function () {
       // Screen Shield Listeners
       var closeScreenShield = function closeScreenShield() {
         var currSprite = characterManager.getCurrentSprite();
-        _this2.video.attr('src', null);
-        _this2.video.css({ visibility: "hidden" });
-        setTimeout(_this2.removeScreenShield.bind(_this2), 100);
+        _this3.video.attr('src', null);
+        _this3.video.css({ visibility: "hidden" });
+        setTimeout(_this3.removeScreenShield.bind(_this3), 100);
         currSprite.playAnimation([currSprite.states.rtouch[0] + 1, currSprite.states.rtouch[1]], currSprite.states.begin, function () {
-          _this2.showScreenArea({ characterManager: characterManager });
+          _this3.showScreenArea({ characterManager: characterManager });
         });
       };
       this.screenShield.on('click', closeScreenShield);
@@ -55355,8 +55420,8 @@ var UIManager = exports.UIManager = (function () {
         if (sprite.x <= end) {
           sprite.vx = 0;
           sprite.x = end;
-          _this2.showScreenArea({ characterManager: _this2.characterManager });
-          _this2.characterManager.displayBioBox();
+          _this3.showScreenArea({ characterManager: _this3.characterManager });
+          _this3.characterManager.displayBioBox();
           if (movesBg) {
             backgroundManager.move(0);
           }
@@ -55380,8 +55445,8 @@ var UIManager = exports.UIManager = (function () {
         if (sprite.x >= end) {
           sprite.vx = 0;
           sprite.x = end;
-          _this2.showScreenArea({ characterManager: _this2.characterManager });
-          _this2.characterManager.displayBioBox();
+          _this3.showScreenArea({ characterManager: _this3.characterManager });
+          _this3.characterManager.displayBioBox();
           if (movesBg) {
             backgroundManager.move(0);
           }
@@ -55402,18 +55467,18 @@ var UIManager = exports.UIManager = (function () {
 
       // NEXT BOX LISTENERS
       var nextFunc = function nextFunc() {
-        _this2.removeScreenArea();
-        _this2.characterManager.removeBioBox();
+        _this3.removeScreenArea();
+        _this3.characterManager.removeBioBox();
         var prevSprite = characterManager.getCurrentSprite();
         var currSprite = characterManager.getNextSprite();
 
         currSprite.visible = true;
-        currSprite.x = 2 * _this2.spriteWidth + _this2.spriteWidth / 2;
+        currSprite.x = 2 * _this3.spriteWidth + _this3.spriteWidth / 2;
 
         prevSprite.x = 0;
         prevSprite.visible = true;
         setTimeout(function () {
-          slideFunc(prevSprite, -2 * _this2.spriteWidth - _this2.spriteWidth / 2, true);
+          slideFunc(prevSprite, -2 * _this3.spriteWidth - _this3.spriteWidth / 2, true);
           slideFunc(currSprite, 0, false);
         }, 100);
       };
@@ -55426,19 +55491,19 @@ var UIManager = exports.UIManager = (function () {
 
       // Prev BOX LISTENERS
       var prevFunc = function prevFunc() {
-        _this2.removeScreenArea();
-        _this2.characterManager.removeBioBox();
+        _this3.removeScreenArea();
+        _this3.characterManager.removeBioBox();
         var nextSprite = characterManager.getCurrentSprite();
         var currSprite = characterManager.getPrevSprite();
 
         currSprite.visible = true;
-        currSprite.x = -2 * _this2.spriteWidth - _this2.spriteWidth / 2;
+        currSprite.x = -2 * _this3.spriteWidth - _this3.spriteWidth / 2;
 
         nextSprite.x = 0;
         nextSprite.visible = true;
 
         setTimeout(function () {
-          slideLeftFunc(nextSprite, 2 * _this2.spriteWidth + _this2.spriteWidth / 2, true);
+          slideLeftFunc(nextSprite, 2 * _this3.spriteWidth + _this3.spriteWidth / 2, true);
           slideLeftFunc(currSprite, 0, false);
         }, 100);
       };
@@ -57429,6 +57494,7 @@ var loadScene = function loadScene(renderer, smoothie, renderLoop, _ref, first) 
     $('body').append(renderer.view);
     renderLoop.call(smoothie);
     uiManager.showScreenArea({ characterManager: characterManager });
+    characterManager.displayBioBox();
   };
 };
 

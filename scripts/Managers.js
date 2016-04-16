@@ -31,8 +31,12 @@ const centerAndScaleContainer = ({container, screen, targetAspect}) => {
 };
 
 export class BackgroundManager {
-  constructor({screen, targetAspect, bg, size, container}) {
+  constructor({screen, targetAspect, bg, size, container, bioBoxes}) {
     this.container = container;
+    this.bioBoxes = bioBoxes.map(bio => {
+      let texture = new PIXI.Texture(new PIXI.BaseTexture(bio.data))
+      return { name: bio.name, texture}
+    });
     this._layers = bg.map(layer => {
       let texture = new PIXI.extras.TilingSprite(new PIXI.Texture(new PIXI.BaseTexture(layer.data)));
       texture.width = size.width;
@@ -44,6 +48,8 @@ export class BackgroundManager {
         texture: texture
       }
     });
+
+    this.bioContainer = new PIXI.Container();
 
     this._layers.forEach(layer => {
       this.container.addChild(layer.texture)
@@ -57,7 +63,23 @@ export class BackgroundManager {
       screen,
       targetAspect
     });
-    this.scale = this.container.scale
+    this.scale = this.container.scale;
+    this.container.addChild(this.bioContainer);
+  }
+
+  addBio(name) {
+    this.bioBoxes.filter(bio => {
+      return bio.name === name
+    }).forEach(bio => {
+      let sprite = SU.sprite(bio.texture);
+      this.bioContainer.addChild(sprite);
+    })
+    // console.log(this.bioBoxes);
+    // console.log(this.bioContainer);
+  }
+
+  removeBio(name) {
+    this.bioContainer.removeChildren()
   }
 
   move(velocity) {
@@ -80,7 +102,8 @@ export class BackgroundManager {
 }
 
 export class CharacterManager {
-  constructor({screen, targetAspect, container, chars, profiles, bioBoxes}) {
+  constructor({screen, targetAspect, container, chars, profiles, backgroundManager}) {
+    this.backgroundManager = backgroundManager;
     for (let char in chars) {
       let resources = chars[char].map(data => {
         return new PIXI.Texture(new PIXI.BaseTexture(data.data))
@@ -118,10 +141,12 @@ export class CharacterManager {
 
   displayBioBox() {
     let name = this.getCurrentSprite().__profile__.name;
+    this.backgroundManager.addBio(name)
   }
 
   removeBioBox() {
     let name = this.getCurrentSprite().__profile__.name;
+    this.backgroundManager.removeBio(name)
   }
 
   getCurrentSprite() {

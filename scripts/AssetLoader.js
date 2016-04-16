@@ -53,6 +53,7 @@ export class AssetLoader {
       let background = [];
       let chars = {};
       let profiles = {};
+      let bioBoxes = [];
       for (let asset in loader.resources) {
         if (asset.slice(0, 2) == 'bg') {
           background.push({
@@ -61,6 +62,11 @@ export class AssetLoader {
           })
         } else if (asset.split('-')[1] === 'profile') {
           profiles[asset.split('-')[0]] = loader.resources[asset].data;
+        } else if (asset.split('-')[0] === 'bio') {
+          bioBoxes.push({
+            name: asset.split('-')[1],
+            data: loader.resources[asset].data
+          })
         } else {
           let name = asset.split('-')[0];
           let availNames = Object.keys(chars);
@@ -94,17 +100,21 @@ export class AssetLoader {
       let bgOpts = Object.assign({}, managerBase, {
         bg: background,
         size: this.calculateSize(this._availableSizes),
-        container: bgContainer
+        container: bgContainer,
+        bioBoxes
       });
+
+      let backgroundManager = new BackgroundManager(bgOpts);
       
       let characterOpts = Object.assign({}, managerBase, {
         container: characterContainer,
         chars,
-        profiles
+        profiles,
+        backgroundManager
       });
       
       let characterManager = new CharacterManager(characterOpts);
-      let backgroundManager = new BackgroundManager(bgOpts);
+      
 
       let UIOpts = Object.assign({}, managerBase, {
         container: UIContainer,
@@ -121,6 +131,7 @@ export class AssetLoader {
     let loader = new PIXI.loaders.Loader();
     let size = this.calculateSize(this._availableSizes);
     let characters = this._characters;
+    let charNames = ['alma'];
 
     let getCharacterFrames = (character, size) => {
       let pathsToFetch = [];
@@ -133,6 +144,10 @@ export class AssetLoader {
     let prom = new Promise((resolve, reject) => {
       for (let i = 0; i < 4; i++) {
         loader.add(`bg-${i}`, `./public/bg/${size.width}/${i}.png`)
+      }
+
+      for (let name of charNames) {
+        loader.add(`bio-${name}`, `./public/bg/${size.width}/${name}.png`)
       }
 
       for (let character of characters) {
