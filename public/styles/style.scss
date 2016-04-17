@@ -28,6 +28,8 @@ hr {
   border: 0;
   height: 1px;
   background-image: linear-gradient(to right, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0));
+  width: 50vh;
+  margin: 0 auto 10px;
 }
 
 #loading-bar {
@@ -136,4 +138,24 @@ i {
 
 .dropCap {
   float: left; color: #000; font-size: 75px; line-height: 60px; padding-top: 4px; padding-right: 8px; padding-left: 3px; font-family: Georgia;
+}
+
+aside {
+  font-size: .85em;
+  border: 2px dotted rgba(100, 100, 100, .8);
+  max-width: 700px;
+  float: right;
+  padding: 1em;
+  border-radius: 10px;
+  @media screen and (max-width: 700px) {
+    width: 100%;
+    margin-bottom: 10px;
+  }
+  @media screen and (min-width: 701px) {
+    width: 500px;
+  }
+  p {
+    padding: 0;
+    margin: 0;
+  }
 }

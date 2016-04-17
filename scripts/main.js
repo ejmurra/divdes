@@ -46,7 +46,6 @@ let resizeToDesert = () => {
     position: "absolute",
     width: "50vw",
     left: "25vw",
-    top: "51vh",
   })
   $('body').append(bar);
 

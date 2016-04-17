@@ -25,7 +25,9 @@ p {
 hr {
   border: 0;
   height: 1px;
-  background-image: linear-gradient(to right, transparent, rgba(0, 0, 0, 0.75), transparent); }
+  background-image: linear-gradient(to right, transparent, rgba(0, 0, 0, 0.75), transparent);
+  width: 50vh;
+  margin: 0 auto 10px; }
 
 #loading-bar {
   position: fixed;
@@ -107,5 +109,23 @@ i {
   padding-right: 8px;
   padding-left: 3px;
   font-family: Georgia; }
+
+aside {
+  font-size: .85em;
+  border: 2px dotted rgba(100, 100, 100, 0.8);
+  max-width: 700px;
+  float: right;
+  padding: 1em;
+  border-radius: 10px; }
+  @media screen and (max-width: 700px) {
+    aside {
+      width: 100%;
+      margin-bottom: 10px; } }
+  @media screen and (min-width: 701px) {
+    aside {
+      width: 500px; } }
+  aside p {
+    padding: 0;
+    margin: 0; }
 
 /*# sourceMappingURL=style.css.map */

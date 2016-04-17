@@ -57513,8 +57513,7 @@ var resizeToDesert = function resizeToDesert() {
   bar.css({
     position: "absolute",
     width: "50vw",
-    left: "25vw",
-    top: "51vh"
+    left: "25vw"
   });
   $('body').append(bar);
 
