@@ -258,7 +258,7 @@ export class UIManager {
       'background-color': "transparent",
       padding: '4px'
     });
-    let twitterUrl = "https://twitter.com/intent/tweet/?text=Some+body+copy&url=http%3A%2F%2Fwww.blacksciencematters.com&hashtags=blacksciencematters&via=BlkScienceMtrs";
+    let twitterUrl = "https://twitter.com/intent/tweet/?url=http%3A%2F%2Fwww.blacksciencematters.com&hashtags=blacksciencematters&via=BlkScienceMtrs";
     this.twitter = $(`<a href="${twitterUrl}">
           <i class='fa fa-twitter fa-2x'></i>
         </a>`);
