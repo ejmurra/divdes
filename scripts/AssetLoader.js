@@ -2,12 +2,13 @@ const PIXI = require('pixi.js');
 import {BackgroundManager, CharacterManager, UIManager} from "./Managers";
 
 export class AssetLoader {
-  constructor({screen, availableSizes, characters, updateFunc}) {
+  constructor({screen, availableSizes, characters, updateFunc, windowResizeFunc}) {
     this._screen = screen;
     this._targetAspect = 1920/1080;
     this._availableSizes = availableSizes;
     this._characters = characters;
     this._updateFunc = updateFunc;
+    this.resizeFunc = windowResizeFunc;
   }
   
   resize(screen) {
@@ -110,7 +111,8 @@ export class AssetLoader {
         container: characterContainer,
         chars,
         profiles,
-        backgroundManager
+        backgroundManager,
+        windowBindingFunc: this.resizeFunc
       });
       
       let characterManager = new CharacterManager(characterOpts);

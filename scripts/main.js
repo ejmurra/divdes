@@ -123,7 +123,7 @@ let resizeToDesert = () => {
     bar.attr('value', Math.round(loader.progress))
   };
 
-  let assets = new AssetLoader({screen, availableSizes, characters, updateFunc});
+  let assets = new AssetLoader({screen, availableSizes, characters, updateFunc, windowResizeFunc: debounce(resizeToDesert, 300)});
 
   assets.load().then(({characterManager, backgroundManager, uiManager}) => {
     bar.remove();
@@ -235,7 +235,7 @@ let init = () => {
   };
 
 
-  let assets = new AssetLoader({screen, availableSizes, characters, updateFunc});
+  let assets = new AssetLoader({screen, availableSizes, characters, updateFunc, windowResizeFunc: debounce(resizeToDesert, 300)});
   
   assets.load().then(({characterManager, backgroundManager, uiManager}) => {
     let renderer = PIXI.autoDetectRenderer($(window).innerWidth(), $(window).innerHeight());

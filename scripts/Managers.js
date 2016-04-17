@@ -179,7 +179,9 @@ export class CharacterManager {
 }
 
 export class UIManager {
-  constructor({container, screen, scale, size}) {
+  constructor({container, screen, scale, size, windowBindingFunc}) {
+
+    this.bindingFunc = windowBindingFunc;
 
     let spriteWidth = size.width * scale;
     let spriteHeight = size.height * scale;
@@ -526,6 +528,7 @@ export class UIManager {
 
   addScreenShield() {
     this.screenShieldContainer.visible = true;
+    $(window).unbind('resize');
     this.closeBtn.css({
       visibility: 'visible'
     })
@@ -535,7 +538,8 @@ export class UIManager {
     this.screenShieldContainer.visible = false;
     this.closeBtn.css({
       visibility: 'hidden'
-    })
+    });
+    $(window).on('resize', this.bindingFunc);
     this.player.stopVideo();
     $('#videoFrame').remove();
     $('body').append(this.video);
