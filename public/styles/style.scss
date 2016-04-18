@@ -97,6 +97,10 @@ i {
   cursor: pointer;
 }
 
+#closeBtn {
+  font-size: 3em;
+}
+
 #iconBox {
   i {
     @media screen and (min-width: 701px) {

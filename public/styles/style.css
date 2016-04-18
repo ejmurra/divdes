@@ -72,6 +72,9 @@ i {
 #next, #prev, #closeBtn {
   cursor: pointer; }
 
+#closeBtn {
+  font-size: 3em; }
+
 #iconBox i {
   margin: 0 4px;
   cursor: pointer;
