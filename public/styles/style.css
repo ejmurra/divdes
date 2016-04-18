@@ -67,6 +67,7 @@ i {
   cursor: pointer; }
 
 #iconBox i {
+  font-size: 3em;
   margin: 0 4px;
   cursor: pointer;
   transition: all .2s ease-in-out; }

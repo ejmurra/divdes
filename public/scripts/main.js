@@ -55049,7 +55049,7 @@ var UIManager = exports.UIManager = (function () {
       left: (screen.width - spriteWidth) / 2,
       bottom: (screen.height - spriteHeight) / 2,
       'background-color': "transparent",
-      padding: '4px'
+      padding: '1em'
     });
     var twitterUrl = "https://twitter.com/intent/tweet/?url=http%3A%2F%2Fwww.blacksciencematters.com&hashtags=blacksciencematters&via=BlkScienceMtrs";
     this.twitter = $('<a href="' + twitterUrl + '" target="_blank">\n          <i class=\'fa fa-twitter fa-2x\'></i>\n        </a>');
