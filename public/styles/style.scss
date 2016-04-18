@@ -78,12 +78,17 @@ i {
 #next, #prev, #closeBtn{
   visibility: hidden;
   transition: all .2s ease-in-out;
+  @media screen and (min-width: 701px) {
+    font-size: 3em;
+  } @media screen and (max-width: 700px) {
+  font-size: 1em;
+  }
   &:hover {
     transform: scale(1.4);
     -webkit-transform: scale(1.4);
     -ms-transform: scale(1.4);
     i {
-      color: #3288e6;
+      color: #dddddd;
     }
   }
 }
@@ -94,7 +99,11 @@ i {
 
 #iconBox {
   i {
-    font-size: 3em;
+    @media screen and (min-width: 701px) {
+      font-size: 3em;
+    } @media screen and (max-width: 700px) {
+      font-size: 1em;
+    }
     margin: 0 4px;
     cursor: pointer;
     transition: all .2s ease-in-out;
@@ -106,6 +115,8 @@ i {
     }
   }
 }
+
+
 
 .creditRow {
   padding: .7em;
