@@ -261,7 +261,7 @@ export class UIManager {
       padding: '4px'
     });
     let twitterUrl = "https://twitter.com/intent/tweet/?url=http%3A%2F%2Fwww.blacksciencematters.com&hashtags=blacksciencematters&via=BlkScienceMtrs";
-    this.twitter = $(`<a href="${twitterUrl}">
+    this.twitter = $(`<a href="${twitterUrl}" target="_blank">
           <i class='fa fa-twitter fa-2x'></i>
         </a>`);
     this.fb = $("<i class='fa fa-facebook-square fa-2x'></i>");

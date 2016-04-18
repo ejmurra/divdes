@@ -55052,7 +55052,7 @@ var UIManager = exports.UIManager = (function () {
       padding: '4px'
     });
     var twitterUrl = "https://twitter.com/intent/tweet/?url=http%3A%2F%2Fwww.blacksciencematters.com&hashtags=blacksciencematters&via=BlkScienceMtrs";
-    this.twitter = $('<a href="' + twitterUrl + '">\n          <i class=\'fa fa-twitter fa-2x\'></i>\n        </a>');
+    this.twitter = $('<a href="' + twitterUrl + '" target="_blank">\n          <i class=\'fa fa-twitter fa-2x\'></i>\n        </a>');
     this.fb = $("<i class='fa fa-facebook-square fa-2x'></i>");
     this.fb.on('click', function () {
       FB.ui({
