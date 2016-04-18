@@ -79,9 +79,9 @@ i {
   visibility: hidden;
   transition: all .2s ease-in-out;
   @media screen and (min-width: 701px) {
-    font-size: 3em;
+    font-size: 1em;
   } @media screen and (max-width: 700px) {
-  font-size: 1em;
+  font-size: .8em;
   }
   &:hover {
     transform: scale(1.4);
@@ -102,7 +102,7 @@ i {
     @media screen and (min-width: 701px) {
       font-size: 3em;
     } @media screen and (max-width: 700px) {
-      font-size: 1em;
+      font-size: .8em;
     }
     margin: 0 4px;
     cursor: pointer;

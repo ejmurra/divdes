@@ -58,10 +58,10 @@ i {
   transition: all .2s ease-in-out; }
   @media screen and (min-width: 701px) {
     #next, #prev, #closeBtn {
-      font-size: 3em; } }
+      font-size: 1em; } }
   @media screen and (max-width: 700px) {
     #next, #prev, #closeBtn {
-      font-size: 1em; } }
+      font-size: .8em; } }
   #next:hover, #prev:hover, #closeBtn:hover {
     transform: scale(1.4);
     -webkit-transform: scale(1.4);
@@ -81,7 +81,7 @@ i {
       font-size: 3em; } }
   @media screen and (max-width: 700px) {
     #iconBox i {
-      font-size: 1em; } }
+      font-size: .8em; } }
   #iconBox i:hover {
     transform: scale(1.4);
     -webkit-transform: scale(1.4);
