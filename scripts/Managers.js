@@ -255,8 +255,8 @@ export class UIManager {
     this.iconBox = $("<div id='iconBox'></div>");
     this.iconBox.css({
       position: 'absolute',
-      left: (screen.width - spriteWidth)/2,
-      bottom: (screen.height - spriteHeight)/2,
+      left: (screen.width - spriteWidth)/2 + 40,
+      bottom: (screen.height - spriteHeight)/2 + 40,
       'background-color': "transparent",
       padding: '1em'
     });
@@ -314,7 +314,7 @@ export class UIManager {
           ]
         },
         {
-          heading: "Video editing and post production",
+          heading: "Video editing, post production and opening essay",
           people: [
             {
               name: "Zila Renfro",
@@ -332,7 +332,7 @@ export class UIManager {
           ]
         },
         {
-          heading: "Comic style illustrations",
+          heading: "Comic style illustrations for 'I Quit'",
           people: [
             {
               name: "Griffin Tucker",
@@ -353,7 +353,7 @@ export class UIManager {
           heading: "Concept and production supervision",
           people: [
             {
-              name: "Charles Ledford",
+              name: "Charles \"Stretch\" Ledford",
               email: "stretch@illinois.edu"
             },
           ]
@@ -425,35 +425,35 @@ export class UIManager {
 
     this.next = $(`
         <div id="next">
-          <i class="fa fa-angle-right fa-4x"></i>
+          <i class="fa fa-angle-right fa-5x"></i>
         </div>
     `);
     this.next.css({
       position: 'absolute',
-      right: (screen.width - spriteWidth)/2,
-      "background-color": "rgba(100,100,100,.4)",
+      right: (screen.width - spriteWidth)/2 + 40,
+      "background-color": "#b28950",
       top: (screen.height - spriteHeight)/2 + spriteHeight/2,
       margin: 0,
-      padding: "3px",
+      padding: "20px",
       cursor: "pointer",
-      "border-radius": "4px",
+      "border-radius": "15px",
       // visibility: "hidden"
     });
 
     this.prev = $(`
         <div id="prev">
-          <i class="fa fa-angle-left fa-4x"></i>
+          <i class="fa fa-angle-left fa-5x"></i>
         </div>
     `);
     this.prev.css({
       position: 'absolute',
-      left: (screen.width - spriteWidth)/2,
-      "background-color": "rgba(100,100,100,.4)",
+      left: (screen.width - spriteWidth)/2 + 40,
+      "background-color": "#b28950",
       top: (screen.height - spriteHeight)/2 + spriteHeight/2,
       margin: 0,
-      padding: "3px",
+      padding: "20px",
       cursor: "pointer",
-      "border-radius": "4px",
+      "border-radius": "15px",
       // visibility: "hidden"
     });
 

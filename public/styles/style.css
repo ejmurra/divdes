@@ -76,7 +76,7 @@ i {
   font-size: 3em; }
 
 #iconBox i {
-  margin: 0 4px;
+  margin: 0 15px;
   cursor: pointer;
   transition: all .2s ease-in-out; }
   @media screen and (min-width: 701px) {

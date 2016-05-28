@@ -55046,8 +55046,8 @@ var UIManager = exports.UIManager = (function () {
     this.iconBox = $("<div id='iconBox'></div>");
     this.iconBox.css({
       position: 'absolute',
-      left: (screen.width - spriteWidth) / 2,
-      bottom: (screen.height - spriteHeight) / 2,
+      left: (screen.width - spriteWidth) / 2 + 40,
+      bottom: (screen.height - spriteHeight) / 2 + 40,
       'background-color': "transparent",
       padding: '1em'
     });
@@ -55091,7 +55091,7 @@ var UIManager = exports.UIManager = (function () {
           email: "tpayne2@illinois.edu"
         }]
       }, {
-        heading: "Video editing and post production",
+        heading: "Video editing, post production and opening essay",
         people: [{
           name: "Zila Renfro",
           email: "zila.renfro@gmail.com"
@@ -55103,7 +55103,7 @@ var UIManager = exports.UIManager = (function () {
           email: "dingkaixin221@gmail.com"
         }]
       }, {
-        heading: "Comic style illustrations",
+        heading: "Comic style illustrations for 'I Quit'",
         people: [{
           name: "Griffin Tucker",
           email: "griffinavtucker@gmail.com"
@@ -55117,7 +55117,7 @@ var UIManager = exports.UIManager = (function () {
       }, {
         heading: "Concept and production supervision",
         people: [{
-          name: "Charles Ledford",
+          name: "Charles \"Stretch\" Ledford",
           email: "stretch@illinois.edu"
         }]
       }];
@@ -55224,29 +55224,29 @@ var UIManager = exports.UIManager = (function () {
     // this.next.endFill();
     // this.next.interactive = true;
 
-    this.next = $('\n        <div id="next">\n          <i class="fa fa-angle-right fa-4x"></i>\n        </div>\n    ');
+    this.next = $('\n        <div id="next">\n          <i class="fa fa-angle-right fa-5x"></i>\n        </div>\n    ');
     this.next.css({
       position: 'absolute',
-      right: (screen.width - spriteWidth) / 2,
-      "background-color": "rgba(100,100,100,.4)",
+      right: (screen.width - spriteWidth) / 2 + 40,
+      "background-color": "#b28950",
       top: (screen.height - spriteHeight) / 2 + spriteHeight / 2,
       margin: 0,
-      padding: "3px",
+      padding: "20px",
       cursor: "pointer",
-      "border-radius": "4px"
+      "border-radius": "15px"
     });
 
     // visibility: "hidden"
-    this.prev = $('\n        <div id="prev">\n          <i class="fa fa-angle-left fa-4x"></i>\n        </div>\n    ');
+    this.prev = $('\n        <div id="prev">\n          <i class="fa fa-angle-left fa-5x"></i>\n        </div>\n    ');
     this.prev.css({
       position: 'absolute',
-      left: (screen.width - spriteWidth) / 2,
-      "background-color": "rgba(100,100,100,.4)",
+      left: (screen.width - spriteWidth) / 2 + 40,
+      "background-color": "#b28950",
       top: (screen.height - spriteHeight) / 2 + spriteHeight / 2,
       margin: 0,
-      padding: "3px",
+      padding: "20px",
       cursor: "pointer",
-      "border-radius": "4px"
+      "border-radius": "15px"
     });
 
     // visibility: "hidden"
