@@ -359,7 +359,7 @@ export class UIManager {
           ]
         }
       ];
-      let content = "";
+      let content = "<i id='insideClose' class='fa fa-close fa-3x'></i><h2>Credits</h2>";
 
       for (let block of contentBlock) {
         let openString = `<h4 style="text-align:center;" class="creditBlock">${block.heading}</h4>`;
@@ -370,10 +370,9 @@ export class UIManager {
         }
         content += `${openString}${middleString}`;
       }
+      content += "<p style='margin-top: 2em; font-size: .75em; margin-bottom: -1em;'>©2015/2016 The Board of Trustees at the University of Illinois</p>";
 
-      content += "<p style='margin-top: 2em; font-size: .75em; margin-bottom: -1em;'>©2015/2016 The Board of Trustees at the University of Illinois</p>"
-
-      vex.open({
+      let x = vex.open({
         content: content,
         showCloseButton: false,
         escapeButtonCloses: true,
@@ -399,13 +398,19 @@ export class UIManager {
           padding: '1.2em'
         },
         closeClassName: '',
-        closeCSS: {
-          position: 'relative',
-          left: 0,
-          top: 0,
-          color: 'red',
-          'background-color': '#dddddd'
-        }
+        // closeCSS: {
+        //   position: 'relative',
+        //   left: 0,
+        //   top: 0,
+        //   width: '100px',
+        //   height: '100px',
+        //   color: 'red',
+        //   'background-color': '#dddddd'
+        // }
+      })
+
+      $('#insideClose').on('click', () => {
+        vex.close(x.data().vex.id)
       })
     });
 

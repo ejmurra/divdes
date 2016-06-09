@@ -93,6 +93,15 @@ i {
   }
 }
 
+#insideClose {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  color: red;
+  cursor: pointer;
+  display: inline;
+}
+
 #next, #prev, #closeBtn {
   cursor: pointer;
 }

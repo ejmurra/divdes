@@ -55121,7 +55121,7 @@ var UIManager = exports.UIManager = (function () {
           email: "stretch@illinois.edu"
         }]
       }];
-      var content = "";
+      var content = "<i id='insideClose' class='fa fa-close fa-3x'></i><h2>Credits</h2>";
 
       var _iteratorNormalCompletion = true;
       var _didIteratorError = false;
@@ -55177,7 +55177,7 @@ var UIManager = exports.UIManager = (function () {
 
       content += "<p style='margin-top: 2em; font-size: .75em; margin-bottom: -1em;'>©2015/2016 The Board of Trustees at the University of Illinois</p>";
 
-      vex.open({
+      var x = vex.open({
         content: content,
         showCloseButton: false,
         escapeButtonCloses: true,
@@ -55201,14 +55201,20 @@ var UIManager = exports.UIManager = (function () {
           "border-radius": '10px',
           padding: '1.2em'
         },
-        closeClassName: '',
-        closeCSS: {
-          position: 'relative',
-          left: 0,
-          top: 0,
-          color: 'red',
-          'background-color': '#dddddd'
-        }
+        closeClassName: ''
+      });
+
+      // closeCSS: {
+      //   position: 'relative',
+      //   left: 0,
+      //   top: 0,
+      //   width: '100px',
+      //   height: '100px',
+      //   color: 'red',
+      //   'background-color': '#dddddd'
+      // }
+      $('#insideClose').on('click', function () {
+        vex.close(x.data().vex.id);
       });
     });
 
